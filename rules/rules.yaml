@@ -1,0 +1,12 @@
+rules:
+  - name: "SQL_INJECTION"
+    description: "Détection d'une tentative d'injection SQL basique"
+    pattern: "UNION SELECT"
+
+  - name: "PATH_TRAVERSAL"
+    description: "Détection d'une tentative de remontée d'arborescence (accès aux fichiers système)"
+    pattern: "../../../"
+
+  - name: "CMD_INJECTION"
+    description: "Détection d'une tentative d'exécution de commandes shell"
+    pattern: "/bin/sh"
