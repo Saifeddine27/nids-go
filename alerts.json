@@ -2,3 +2,6 @@
 {"time":"2026-06-18T17:13:25.359906842+02:00","ip_src":"150.171.73.16","attaque_type":"PORT_SCAN","degre_alert":"WARNING","description":"6 ports uniques ciblés en moins de 10s"}
 {"time":"2026-06-18T17:13:45.164797554+02:00","ip_src":"150.171.73.16","attaque_type":"PORT_SCAN","degre_alert":"WARNING","description":"5 ports uniques ciblés en moins de 10s"}
 {"time":"2026-06-18T17:13:46.493204972+02:00","ip_src":"150.171.73.16","attaque_type":"PORT_SCAN","degre_alert":"WARNING","description":"6 ports uniques ciblés en moins de 10s"}
+{"time":"2026-06-20T02:15:40.15311697+02:00","ip_src":"127.0.0.1","attaque_type":"CMD_INJECTION","degre_alert":"CRITICAL","description":"Signature détectée : Détection d'une tentative d'exécution de commandes shell"}
+{"time":"2026-06-20T02:24:10.559356133+02:00","ip_src":"127.0.0.1","attaque_type":"SQL_INJECTION","degre_alert":"CRITICAL","description":"Signature détectée : Détection d'une tentative d'injection SQL basique"}
+{"time":"2026-06-20T02:25:00.970273337+02:00","ip_src":"127.0.0.1","attaque_type":"PATH_TRAVERSAL","degre_alert":"CRITICAL","description":"Signature détectée : Détection d'une tentative de remontée d'arborescence (accès aux fichiers système)"}

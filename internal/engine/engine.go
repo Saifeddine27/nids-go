@@ -14,6 +14,7 @@ import (
 type Engine struct {
 	PortScanMem map[string]map[uint16]time.Time
 	ICMPMem     map[string]map[string]time.Time
+	Rules       []CompiledRule
 }
 
 type CompiledRule struct {
@@ -22,10 +23,11 @@ type CompiledRule struct {
 	CompiledExp *regexp.Regexp
 }
 
-func NewEngine() *Engine {
+func NewEngine(rules []CompiledRule) *Engine {
 	return &Engine{
 		PortScanMem: make(map[string]map[uint16]time.Time),
 		ICMPMem:     make(map[string]map[string]time.Time),
+		Rules:       rules,
 	}
 }
 func CompileRules(cfg *config.Config) []CompiledRule {
@@ -50,9 +52,25 @@ func CompileRules(cfg *config.Config) []CompiledRule {
 }
 
 func (e *Engine) Process(ne parser.NetworkEvent) {
-	window := 10 * time.Second
 	now := time.Now()
 	ip := ne.IPSource.String()
+
+	if len(ne.Payload) > 0 {
+		attackName, attackDesc := CheckPayload(ne.Payload, e.Rules)
+		if attackName != "" {
+			alerte := &alert.AlertInfos{
+				Time:        now,
+				IpSrc:       ne.IPSource,
+				AttaqueType: attackName,
+				DegreAlert:  "CRITICAL",
+				Description: fmt.Sprintf("Signature détectée : %s", attackDesc),
+			}
+			alert.LogAlert(alerte)
+			fmt.Printf("[+] ALERTE CRITIQUE : Payload malveillant (%s) depuis %s\n", attackName, ip)
+		}
+	}
+
+	window := 10 * time.Second
 
 	if _, exists := e.PortScanMem[ip]; !exists {
 		e.PortScanMem[ip] = make(map[uint16]time.Time)

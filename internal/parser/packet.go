@@ -13,6 +13,7 @@ type NetworkEvent struct {
 	Protocol   string
 	SourcePort uint16
 	DestPort   uint16
+	Payload    []byte
 }
 
 func ParsePacket(packet gopacket.Packet) *NetworkEvent {
@@ -51,6 +52,10 @@ func ParsePacket(packet gopacket.Packet) *NetworkEvent {
 		if ok {
 			ne.Protocol = "ICMP"
 		}
+	}
+
+	if appLayer := packet.ApplicationLayer(); appLayer != nil {
+		ne.Payload = appLayer.Payload()
 	}
 
 	return ne
