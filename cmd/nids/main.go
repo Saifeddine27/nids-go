@@ -47,8 +47,6 @@ func main() {
 			} else if ne.Protocol == "ICMP" {
 				fmt.Printf("%s --> %s : %s\n", ne.IPSource, ne.IPDest, ne.Protocol)
 				eng.DetectorPingSweep(*ne)
-			} else {
-				return
 			}
 		}
 	}

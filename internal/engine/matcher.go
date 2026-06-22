@@ -1,13 +1,13 @@
 package engine
 
-func CheckPayload(payload []byte, rules []CompiledRule) (string, string) {
+func CheckPayload(payload []byte, rules []CompiledRule) (string, string, string) {
 	if payload == nil {
-		return "", ""
+		return "", "", ""
 	}
 	for _, rule := range rules {
 		if rule.CompiledExp.Match(payload) {
-			return rule.Nom, rule.Description
+			return rule.Nom, rule.Description, rule.Severity
 		}
 	}
-	return "", ""
+	return "", "", ""
 }
