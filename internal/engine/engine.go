@@ -49,7 +49,6 @@ func CompileRules(cfg *config.Config) []CompiledRule {
 		compExp, err := regexp.Compile(rule.Pattern)
 		if err != nil {
 			fmt.Printf("Erreur lors de la compilation de la règle %s : %v\n", rule.Name, err)
-			return nil
 		}
 
 		compRule := CompiledRule{
