@@ -11,6 +11,7 @@ type Rule struct {
 	Name        string `yaml:"name"`
 	Description string `yaml:"description"`
 	Pattern     string `yaml:"pattern"`
+	Severity    string `yaml:"severity"`
 }
 
 type Config struct {

@@ -14,6 +14,7 @@ type NetworkEvent struct {
 	SourcePort uint16
 	DestPort   uint16
 	Payload    []byte
+	IsSYN      bool
 }
 
 func ParsePacket(packet gopacket.Packet) *NetworkEvent {
@@ -35,6 +36,7 @@ func ParsePacket(packet gopacket.Packet) *NetworkEvent {
 			ne.Protocol = "TCP"
 			ne.SourcePort = uint16(tcp.SrcPort)
 			ne.DestPort = uint16(tcp.DstPort)
+			ne.IsSYN = tcp.SYN && !tcp.ACK
 		}
 	}
 

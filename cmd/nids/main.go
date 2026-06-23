@@ -49,9 +49,9 @@ func main() {
 		fmt.Printf("Erreur fatale au démarrage : %v\n", err)
 		return
 	}
-	compiledRules := engine.CompileRules(cfg)
-	if compiledRules == nil {
-		fmt.Println("Erreur fatale : Impossible de compiler les règles.")
+	compiledRules, err := engine.CompileRules(cfg)
+	if err != nil {
+		fmt.Printf("Erreur fatale : impossible de compiler les règles : %v\n", err)
 		return
 	}
 	fmt.Printf("%d règles chargées avec succès.\n", len(compiledRules))
