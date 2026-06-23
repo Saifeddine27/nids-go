@@ -28,6 +28,12 @@ func ParsePacket(packet gopacket.Packet) *NetworkEvent {
 			ne.IPSource = ip.SrcIP
 			ne.IPDest = ip.DstIP
 		}
+	} else if ipLayer := packet.Layer(layers.LayerTypeIPv6); ipLayer != nil {
+		ip, ok := ipLayer.(*layers.IPv6)
+		if ok {
+			ne.IPSource = ip.SrcIP
+			ne.IPDest = ip.DstIP
+		}
 	}
 
 	if tcpLayer := packet.Layer(layers.LayerTypeTCP); tcpLayer != nil {
@@ -51,6 +57,11 @@ func ParsePacket(packet gopacket.Packet) *NetworkEvent {
 
 	if icmpLayer := packet.Layer(layers.LayerTypeICMPv4); icmpLayer != nil {
 		_, ok := icmpLayer.(*layers.ICMPv4)
+		if ok {
+			ne.Protocol = "ICMP"
+		}
+	} else if icmpLayer := packet.Layer(layers.LayerTypeICMPv6); icmpLayer != nil {
+		_, ok := icmpLayer.(*layers.ICMPv6)
 		if ok {
 			ne.Protocol = "ICMP"
 		}
